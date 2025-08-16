@@ -19,7 +19,7 @@ setup(
     description="A Python package for simplified access to Kenya Revenue Authority (KRA) API",
     long_description=read_readme(),
     long_description_content_type="text/markdown",
-    url="https://github.com/paulndambo/KRA_Gava_Connect",
+    url="https://github.com/Paulndambo/KRA_Gava_Connect",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -39,8 +39,8 @@ setup(
     install_requires=read_requirements(),
     keywords="kra, kenya, revenue, authority, api, tax, pin, gava, connect",
     project_urls={
-        "Bug Reports": "https://github.com/paulndambo/KRA_Gava_Connect/issues",
-        "Source": "https://github.com/paulndambo/KRA_Gava_Connect",
-        "Documentation": "https://github.com/paulndambo/KRA_Gava_Connect#readme",
+        "Bug Reports": "https://github.com/Paulndambo/KRA_Gava_Connect/issues",
+        "Source": "https://github.com/Paulndambo/KRA_Gava_Connect",
+        "Documentation": "https://github.com/Paulndambo/KRA_Gava_Connect#readme",
     },
 )
