@@ -7,7 +7,10 @@ import requests
 import base64
 import logging
 from enum import Enum
+from dotenv import load_dotenv
 from typing import Dict, Any, Optional
+
+load_dotenv()
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -102,6 +105,17 @@ class KRAMethodsProvider:
         url = f"{self.base_url}/checker/v1/pinbypin" if check_by_what.lower() == "pin" else f"{self.base_url}/checker/v1/pin"
         return url.replace(" ", "").replace("\n", "").replace("\r", "").strip()
     
+    def file_nil_return_url(self) -> str:
+        """
+        Returns the URL for filing tax returns based on the environment.
+        
+        Returns:
+            The complete URL for the tax return filing endpoint.
+        """
+        url = f"{self.base_url}/dtd/return/v1/nil"
+        return url.replace(" ", "").replace("\n", "").replace("\r", "").strip()
+
+
     def get_token_url(self) -> str:
         """
         Returns the token generation URL based on the environment.
@@ -198,3 +212,46 @@ class KRAGavaConnect:
             headers=self.headers
         )
         return response.json()
+
+    def file_nil_return(self, 
+        taxpayer_pin: str, 
+        obligation_code: int, 
+        month: int, 
+        year: int) -> Dict[str, Any]:
+        """
+        File a tax return using the KRA API.
+        
+        Args:
+            taxpayer_pin: The taxpayer PIN.
+            obligation_code: The obligation code.
+            month: The month of the tax return.
+            year: The year of the tax return.
+            
+        Returns:
+            JSON response from the KRA API.
+        """
+        data = {
+            "TAXPAYERDETAILS": {
+                "Year": year,
+                "Month": month,
+                "TaxpayerPIN": taxpayer_pin,
+                "ObligationCode": obligation_code
+            }
+        }
+
+        print(f"URL: {self.methods.file_nil_return_url()}")
+        
+        response = requests.post(
+            url=self.methods.file_nil_return_url(),
+            json=data,
+            headers=self.headers
+        )
+        return response.json()
+      
+
+
+checker = KRAGavaConnect(
+    consumer_key=os.getenv("PIN_CHECKER_CONSUMER_KEY"), 
+    consumer_secret=os.getenv("PIN_CHECKER_CONSUMER_SECRET"), 
+    environment="sandbox"
+)
