@@ -13,7 +13,7 @@ def read_requirements():
 
 setup(
     name="gava_connect",
-    version="1.0.0",
+    version="1.0.1",
     author="Paul Ndambo",
     author_email="paulkadabo@gmail.com",
     description="A Python package for simplified access to Kenya Revenue Authority (KRA) API",
